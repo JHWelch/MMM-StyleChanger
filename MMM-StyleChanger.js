@@ -68,7 +68,7 @@ Module.register('MMM-StyleChanger', {
 
   getTemplateData () {
     return {
-      styles: this.config.styles,
+      styles: this.styles,
     };
   },
 

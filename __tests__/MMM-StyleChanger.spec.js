@@ -99,7 +99,7 @@ describe('getTemplateData', () => {
         path: 'config/custom2.css',
       },
     ];
-    MMMStyleChanger.config.styles = styles;
+    MMMStyleChanger.styles = styles;
     expect(MMMStyleChanger.getTemplateData()).toEqual({
       styles,
     });
