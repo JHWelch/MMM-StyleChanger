@@ -1,0 +1,35 @@
+{
+  "name": "MMM-StyleChanger",
+  "version": "1.0.0",
+  "description": "A Magic Mirror Module to display tasks from a Notion Task database",
+  "keywords": [
+    "magic",
+    "mirror",
+    "mmm"
+  ],
+  "homepage": "https://github.com/JHWelch/MMM-StyleChanger#readme",
+  "bugs": {
+    "url": "https://github.com/JHWelch/MMM-StyleChanger/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/JHWelch/MMM-StyleChanger.git"
+  },
+  "license": "MIT",
+  "author": "Jordan Welch",
+  "type": "commonjs",
+  "main": "MMM-StyleChanger.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@jhwelch/mmm-eslint-config": "^5.0.0",
+    "eslint": "^10.10.0",
+    "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1",
+    "nunjucks": "^3.2.4"
+  }
+}
