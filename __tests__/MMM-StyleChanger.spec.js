@@ -87,16 +87,39 @@ describe('getStyles', () => {
   });
 });
 
+describe('notificationReceived', () => {
+  it('binds touch events if notification is MODULE_DOM_UPDATED', () => {
+    MMMStyleChanger.bindTouchEvents = jest.fn();
+    MMMStyleChanger.notificationReceived('MODULE_DOM_UPDATED');
+
+    expect(MMMStyleChanger.bindTouchEvents).toHaveBeenCalled();
+  });
+
+  it('binds touch events if notification is MODULE_DOM_CREATED', () => {
+    MMMStyleChanger.bindTouchEvents = jest.fn();
+    MMMStyleChanger.notificationReceived('MODULE_DOM_CREATED');
+
+    expect(MMMStyleChanger.bindTouchEvents).toHaveBeenCalled();
+  });
+
+  it('does nothing if notification is something else', () => {
+    MMMStyleChanger.bindTouchEvents = jest.fn();
+    MMMStyleChanger.notificationReceived('SOME_OTHER_NOTIFICATION');
+
+    expect(MMMStyleChanger.bindTouchEvents).not.toHaveBeenCalled();
+  });
+});
+
 describe('bindTouchEvents', () => {
   it('binds touch events for close button', () => {
-    const mockCloseButton = document.createElement('button');
-    mockCloseButton.className = 'style-button';
-    document.body.appendChild(mockCloseButton);
+    const mockStyleButton = document.createElement('button');
+    mockStyleButton.className = 'style-button';
+    document.body.appendChild(mockStyleButton);
     MMMStyleChanger.switchStyles = jest.fn();
 
     MMMStyleChanger.bindTouchEvents();
 
-    mockCloseButton.dispatchEvent(new Event('touchend'));
+    mockStyleButton.dispatchEvent(new Event('touchend'));
     expect(MMMStyleChanger.switchStyles).toHaveBeenCalled();
   });
 });

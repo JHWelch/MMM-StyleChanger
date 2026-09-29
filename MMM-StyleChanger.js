@@ -21,7 +21,7 @@ Module.register('MMM-StyleChanger', {
   },
 
   notificationReceived: function (notification, _payload, _sender) {
-    if (notification === 'MODULE_DOM_UPDATED') {
+    if (['MODULE_DOM_CREATED', 'MODULE_DOM_UPDATED'].includes(notification) ) {
       this.bindTouchEvents();
     }
   },
