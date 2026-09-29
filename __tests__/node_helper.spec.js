@@ -1,7 +1,5 @@
 let helper;
 
-jest.mock('@doist/todoist-sdk');
-
 beforeEach(() => {
   helper = require('../node_helper.js');
   helper.setName('MMM-TodoistTouch');
