@@ -17,7 +17,7 @@ beforeEach(() => {
 
 it('has a default config', () => {
   expect(MMMStyleChanger.defaults).toEqual({
-    //
+    styles: [],
   });
 });
 
@@ -60,9 +60,20 @@ describe('getTemplate', () => {
 });
 
 describe('getTemplateData', () => {
-  it('returns template data', () => {
+  it('passes the configured stylesheet names', () => {
+    const styles = [
+      {
+        name: 'Style 1',
+        path: 'config/custom1.css',
+      },
+      {
+        name: 'Style 2',
+        path: 'config/custom2.css',
+      },
+    ];
+    MMMStyleChanger.config.styles = styles;
     expect(MMMStyleChanger.getTemplateData()).toEqual({
-      //
+      styles,
     });
   });
 });

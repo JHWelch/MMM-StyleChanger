@@ -9,7 +9,7 @@
 
 Module.register('MMM-StyleChanger', {
   defaults: {
-    //
+    styles: [],
   },
 
   requiresVersion: '2.28.0',
@@ -26,7 +26,7 @@ Module.register('MMM-StyleChanger', {
 
   getTemplateData () {
     return {
-      //
+      styles: this.config.styles,
     };
   },
 
