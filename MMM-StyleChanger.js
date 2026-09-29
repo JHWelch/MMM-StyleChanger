@@ -43,7 +43,16 @@ Module.register('MMM-StyleChanger', {
   },
 
   switchStyles (event) {
+    const {currentTarget: el} = event;
 
+    const path = el.dataset.path;
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = path;
+
+    document.querySelector('head').appendChild(link);
   },
 
   getTemplate () {

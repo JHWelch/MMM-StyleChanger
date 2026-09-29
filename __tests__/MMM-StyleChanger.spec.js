@@ -141,3 +141,22 @@ describe('bindTouchEvent', () => {
     document.body.removeChild(mockElement);
   });
 });
+
+describe('switchStyles', () => {
+  it('adds the style to the <head>', () => {
+    const mockStyleButton = document.createElement('button');
+    mockStyleButton.className = 'style-button';
+    mockStyleButton.dataset.path = 'config/custom1.css';
+    document.body.appendChild(mockStyleButton);
+
+    MMMStyleChanger.switchStyles({
+      currentTarget: mockStyleButton,
+    });
+
+    const css = document.head.querySelector('link[href="config/custom1.css"]');
+
+    expect(css).not.toBe(null);
+    expect(css.rel).toBe('stylesheet');
+    expect(css.type).toBe('text/css');
+  });
+});
