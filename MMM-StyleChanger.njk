@@ -1,5 +1,5 @@
 {% for style in styles %}
-  <button>
+  <button data-path="{{ style.path }}">
     {{ style.name }}
   </button>
 {% endfor %}

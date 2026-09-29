@@ -25,4 +25,9 @@ describe('loading', () => {
     expect(template).toContain('Style 1');
     expect(template).toContain('Style 2');
   });
+
+  it('has a data attribute for custom CSS', () => {
+    expect(template).toContain('data-path="config/custom1.css"');
+    expect(template).toContain('data-path="config/custom2.css"');
+  });
 });
