@@ -16,8 +16,15 @@ Module.register('MMM-StyleChanger', {
 
   loading: true,
 
+  styles: null,
+
   start () {
     Log.info(`Starting module: ${this.name}`);
+
+    this.styles = this.config.styles.map((style) => ({
+      ...style,
+      loaded: false,
+    }));
   },
 
   notificationReceived: function (notification, _payload, _sender) {

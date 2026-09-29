@@ -51,6 +51,34 @@ describe('start', () => {
 
     expect(global.Log.info).toHaveBeenCalledWith('Starting module: MMM-StyleChanger');
   });
+
+  it('loads in styles', () => {
+    MMMStyleChanger.config.styles = [
+      {
+        name: 'Style 1',
+        path: 'config/custom1.css',
+      },
+      {
+        name: 'Style 2',
+        path: 'config/custom2.css',
+      },
+    ];
+
+    MMMStyleChanger.start();
+
+    expect(MMMStyleChanger.styles).toEqual([
+      {
+        name: 'Style 1',
+        path: 'config/custom1.css',
+        loaded: false,
+      },
+      {
+        name: 'Style 2',
+        path: 'config/custom2.css',
+        loaded: false,
+      },
+    ]);
+  });
 });
 
 describe('getTemplate', () => {
