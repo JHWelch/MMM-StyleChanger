@@ -20,6 +20,32 @@ Module.register('MMM-StyleChanger', {
     Log.info(`Starting module: ${this.name}`);
   },
 
+  notificationReceived: function (notification, _payload, _sender) {
+    if (notification === 'MODULE_DOM_UPDATED') {
+      this.bindTouchEvents();
+    }
+  },
+
+  bindTouchEvents: function () {
+    this.bindTouchEvent('.style-button', this.switchStyles);
+  },
+
+  bindTouchEvent (className, callback) {
+    const elements = document.querySelectorAll(className);
+    if (!elements || !elements.length) return;
+
+    callback = callback.bind(this);
+
+    elements.forEach((element) => {
+      element.addEventListener('touchend', callback);
+      element.addEventListener('click', callback);
+    });
+  },
+
+  switchStyles (event) {
+
+  },
+
   getTemplate () {
     return 'MMM-StyleChanger.njk';
   },

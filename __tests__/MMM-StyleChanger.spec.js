@@ -86,3 +86,35 @@ describe('getStyles', () => {
     ]);
   });
 });
+
+describe('bindTouchEvents', () => {
+  it('binds touch events for close button', () => {
+    const mockCloseButton = document.createElement('button');
+    mockCloseButton.className = 'style-button';
+    document.body.appendChild(mockCloseButton);
+    MMMStyleChanger.switchStyles = jest.fn();
+
+    MMMStyleChanger.bindTouchEvents();
+
+    mockCloseButton.dispatchEvent(new Event('touchend'));
+    expect(MMMStyleChanger.switchStyles).toHaveBeenCalled();
+  });
+});
+
+describe('bindTouchEvent', () => {
+  it('binds touchend and click events to elements with the given class', () => {
+    const mockElement = document.createElement('div');
+    mockElement.className = 'test-class';
+    document.body.appendChild(mockElement);
+
+    const callback = jest.fn();
+    MMMStyleChanger.bindTouchEvent('.test-class', callback);
+
+    mockElement.dispatchEvent(new Event('touchend'));
+    mockElement.dispatchEvent(new Event('click'));
+
+    expect(callback).toHaveBeenCalledTimes(2);
+
+    document.body.removeChild(mockElement);
+  });
+});

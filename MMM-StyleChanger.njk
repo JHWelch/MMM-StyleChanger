@@ -1,5 +1,8 @@
 {% for style in styles %}
-  <button data-path="{{ style.path }}">
+  <button
+    data-path="{{ style.path }}"
+    class="style-button"
+  >
     {{ style.name }}
   </button>
 {% endfor %}
