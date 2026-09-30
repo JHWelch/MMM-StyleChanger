@@ -10,6 +10,7 @@
 Module.register('MMM-StyleChanger', {
   defaults: {
     styles: [],
+    allowMultiple: false,
   },
 
   requiresVersion: '2.28.0',
@@ -59,9 +60,11 @@ Module.register('MMM-StyleChanger', {
       return;
     }
 
-    this.styles
-      .filter((style) => style.loaded)
-      .forEach((style) => this.removeStyle(style));
+    if (!this.config.allowMultiple){
+      this.styles
+        .filter((style) => style.loaded)
+        .forEach((style) => this.removeStyle(style));
+    }
 
     this.addStyle(style);
   },

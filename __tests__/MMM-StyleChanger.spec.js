@@ -7,6 +7,15 @@ const name = 'MMM-StyleChanger';
 
 let MMMStyleChanger;
 
+const loadStyle = (style) => {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = style.path;
+  document.querySelector('head').appendChild(link);
+  style.loaded = true;
+};
+
 beforeEach(() => {
   jest.resetModules();
   require('../MMM-StyleChanger');
@@ -22,6 +31,7 @@ afterEach(() => {
 it('has a default config', () => {
   expect(MMMStyleChanger.defaults).toEqual({
     styles: [],
+    allowMultiple: false,
   });
 });
 
@@ -232,14 +242,7 @@ describe('switchStyles', () => {
     [
       MMMStyleChanger.styles[0],
       MMMStyleChanger.styles[2],
-    ].forEach((style) => {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = style.path;
-      document.querySelector('head').appendChild(link);
-      style.loaded = true;
-    });
+    ].forEach(loadStyle);
 
     MMMStyleChanger.switchStyles({
       currentTarget: mockButtons[1],
@@ -251,10 +254,33 @@ describe('switchStyles', () => {
 
     expect(css1).toBeFalsy();
     expect(css3).toBeFalsy();
-    expect(css2).not.toBeNull();
+    expect(css2).toBeTruthy();
     expect(MMMStyleChanger.styles[0].loaded).toBe(false);
     expect(MMMStyleChanger.styles[1].loaded).toBe(true);
     expect(MMMStyleChanger.styles[2].loaded).toBe(false);
+  });
+
+  it('will NOT unload any styles if allowMultiple is enabled', () => {
+    MMMStyleChanger.config.allowMultiple = true;
+    [
+      MMMStyleChanger.styles[0],
+      MMMStyleChanger.styles[2],
+    ].forEach(loadStyle);
+
+    MMMStyleChanger.switchStyles({
+      currentTarget: mockButtons[1],
+    });
+
+    const css1 = document.head.querySelector('link[href="config/custom1.css"]');
+    const css2 = document.head.querySelector('link[href="config/custom2.css"]');
+    const css3 = document.head.querySelector('link[href="config/custom3.css"]');
+
+    expect(css1).toBeTruthy();
+    expect(css2).toBeTruthy();
+    expect(css3).toBeTruthy();
+    expect(MMMStyleChanger.styles[0].loaded).toBe(true);
+    expect(MMMStyleChanger.styles[1].loaded).toBe(true);
+    expect(MMMStyleChanger.styles[2].loaded).toBe(true);
   });
 
   it('will unload itself if already loaded', () => {
