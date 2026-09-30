@@ -189,6 +189,11 @@ describe('switchStyles', () => {
         path: 'config/custom2.css',
         loaded: false,
       },
+      {
+        name: 'Style 3',
+        path: 'config/custom3.css',
+        loaded: false,
+      },
     ];
     mockButtons = MMMStyleChanger.styles.map((style, index) => {
       const button = document.createElement('button');
@@ -224,24 +229,32 @@ describe('switchStyles', () => {
   });
 
   it('will first unload any existing styles', () => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = MMMStyleChanger.styles[0].path;
-    document.querySelector('head').appendChild(link);
-    MMMStyleChanger.styles[0].loaded = true;
+    [
+      MMMStyleChanger.styles[0],
+      MMMStyleChanger.styles[2],
+    ].forEach((style) => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = style.path;
+      document.querySelector('head').appendChild(link);
+      style.loaded = true;
+    });
 
     MMMStyleChanger.switchStyles({
       currentTarget: mockButtons[1],
     });
 
-    const oldCss = document.head.querySelector('link[href="config/custom1.css"]');
-    const newCss = document.head.querySelector('link[href="config/custom2.css"]');
+    const css1 = document.head.querySelector('link[href="config/custom1.css"]');
+    const css2 = document.head.querySelector('link[href="config/custom2.css"]');
+    const css3 = document.head.querySelector('link[href="config/custom3.css"]');
 
-    expect(oldCss).toBeFalsy();
-    expect(newCss).not.toBeNull();
+    expect(css1).toBeFalsy();
+    expect(css3).toBeFalsy();
+    expect(css2).not.toBeNull();
     expect(MMMStyleChanger.styles[0].loaded).toBe(false);
     expect(MMMStyleChanger.styles[1].loaded).toBe(true);
+    expect(MMMStyleChanger.styles[2].loaded).toBe(false);
   });
 
   it('will unload itself if already loaded', () => {
