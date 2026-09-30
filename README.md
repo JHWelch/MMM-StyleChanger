@@ -1,6 +1,6 @@
 # MMM-StyleChanger
 
-This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror/).
+This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror/). It allows you to toggle between a number of different stylesheets. Change the visual style of your mirror with the push of a button.
 
 ## Installation
 
@@ -10,6 +10,8 @@ In `~/MagicMirror/modules`
 git clone https://github.com/JHWelch/MMM-StyleChanger.git
 cd MMM-StyleChanger
 ```
+
+No dependencies are required for usage. See below for development dependencies.
 
 ## Using the module
 
