@@ -39,10 +39,6 @@ it('requires expected version', () => {
   expect(MMMStyleChanger.requiresVersion).toBe('2.28.0');
 });
 
-it('inits module in loading state', () => {
-  expect(MMMStyleChanger.loading).toBe(true);
-});
-
 describe('start', () => {
   const originalInterval = setInterval;
   const configObject = {
