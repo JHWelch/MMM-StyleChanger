@@ -15,8 +15,6 @@ Module.register('MMM-StyleChanger', {
 
   requiresVersion: '2.28.0',
 
-  loading: true,
-
   styles: null,
 
   start () {
@@ -96,7 +94,6 @@ Module.register('MMM-StyleChanger', {
 
   getStyles () {
     return [
-      // 'font-awesome.css',
       'MMM-StyleChanger.css',
     ];
   },
@@ -106,9 +103,5 @@ Module.register('MMM-StyleChanger', {
       en: 'translations/en.json',
       es: 'translations/es.json',
     };
-  },
-
-  socketNotificationReceived (_notification, _payload) {
-    //
   },
 });
