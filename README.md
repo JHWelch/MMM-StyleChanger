@@ -20,16 +20,41 @@ To use this module, add the following configuration block to the `modules` array
   module: 'MMM-StyleChanger',
   position: 'bottom_left',
   config: {
-    //
+    styles: [
+      {
+        name: 'Style 1',
+        path: 'config/custom1.css',
+      },
+      {
+        name: 'Style 2',
+        path: 'config/custom2.css',
+      },
+    ]
+    // See below for optional configuration values
   }
 }
 ```
 
 ### Customizing Config
 
-| Option | Required? | Description |
-| ------ | --------- | ----------- |
-|        |           |             |
+| Option          | Required? | Default | Description                                                                                     |
+| --------------- | --------- | ------- | ----------------------------------------------------------------------------------------------- |
+| `styles`        | Yes       | `[]`    | The array of styles you would like to toggle through. See [Styles Config](#styles_config) below |
+| `allowMultiple` | No        | `false` | Whether multiple styles can be loaded at once. If not each style added removes the others.      |
+
+#### Styles Config
+
+```js
+{
+  name: 'Style 1',
+  path: 'config/custom1.css',
+},
+```
+
+| Option | Required? | Description                        |
+| ------ | --------- | ---------------------------------- |
+| `name` | Yes       | The text to display on the button. |
+| `path` | Yes       | The path to your CSS file to load. |
 
 ## Update
 
