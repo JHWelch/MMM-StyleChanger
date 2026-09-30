@@ -51,8 +51,14 @@ Module.register('MMM-StyleChanger', {
 
   switchStyles (event) {
     const {currentTarget: el} = event;
-
     const { index, path } = el.dataset;
+
+    this.styles.forEach((style) => {
+      if (!style.loaded) return;
+
+      document.head.querySelector(`link[href="${style.path}"]`)?.remove();
+      style.loaded = false;
+    });
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';

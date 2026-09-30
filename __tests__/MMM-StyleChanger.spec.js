@@ -15,6 +15,10 @@ beforeEach(() => {
   MMMStyleChanger.setData({ name, identifier: `Module_1_${name}` });
 });
 
+afterEach(() => {
+  document.getElementsByTagName('html')[0].innerHTML = '';
+});
+
 it('has a default config', () => {
   expect(MMMStyleChanger.defaults).toEqual({
     styles: [],
@@ -182,7 +186,7 @@ describe('switchStyles', () => {
       },
       {
         name: 'Style 2',
-        path: 'config/custom1.css',
+        path: 'config/custom2.css',
         loaded: false,
       },
     ];
@@ -215,6 +219,27 @@ describe('switchStyles', () => {
       currentTarget: mockButtons[1],
     });
 
+    expect(MMMStyleChanger.styles[0].loaded).toBe(false);
+    expect(MMMStyleChanger.styles[1].loaded).toBe(true);
+  });
+
+  it('will first unload any existing styles', () => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = MMMStyleChanger.styles[0].path;
+    document.querySelector('head').appendChild(link);
+    MMMStyleChanger.styles[0].loaded = true;
+
+    MMMStyleChanger.switchStyles({
+      currentTarget: mockButtons[1],
+    });
+
+    const oldCss = document.head.querySelector('link[href="config/custom1.css"]');
+    const newCss = document.head.querySelector('link[href="config/custom2.css"]');
+
+    expect(oldCss).toBeFalsy();
+    expect(newCss).not.toBeNull();
     expect(MMMStyleChanger.styles[0].loaded).toBe(false);
     expect(MMMStyleChanger.styles[1].loaded).toBe(true);
   });
