@@ -243,4 +243,25 @@ describe('switchStyles', () => {
     expect(MMMStyleChanger.styles[0].loaded).toBe(false);
     expect(MMMStyleChanger.styles[1].loaded).toBe(true);
   });
+
+  it('will unload itself if already loaded', () => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = MMMStyleChanger.styles[1].path;
+    document.querySelector('head').appendChild(link);
+    MMMStyleChanger.styles[1].loaded = true;
+
+    MMMStyleChanger.switchStyles({
+      currentTarget: mockButtons[1],
+    });
+
+    const oldCss = document.head.querySelector('link[href="config/custom1.css"]');
+    const newCss = document.head.querySelector('link[href="config/custom2.css"]');
+
+    expect(oldCss).toBeFalsy();
+    expect(newCss).toBeFalsy();
+    expect(MMMStyleChanger.styles[0].loaded).toBe(false);
+    expect(MMMStyleChanger.styles[1].loaded).toBe(false);
+  });
 });

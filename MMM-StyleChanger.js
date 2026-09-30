@@ -51,7 +51,15 @@ Module.register('MMM-StyleChanger', {
 
   switchStyles (event) {
     const {currentTarget: el} = event;
-    const { index, path } = el.dataset;
+    const style = this.styles[el.dataset.index];
+    const {path, loaded} = style;
+
+    if (loaded) {
+      document.head.querySelector(`link[href="${style.path}"]`)?.remove();
+      style.loaded = false;
+
+      return;
+    }
 
     this.styles.forEach((style) => {
       if (!style.loaded) return;
@@ -64,9 +72,9 @@ Module.register('MMM-StyleChanger', {
     link.rel = 'stylesheet';
     link.type = 'text/css';
     link.href = path;
-
     document.querySelector('head').appendChild(link);
-    this.styles[index].loaded = true;
+
+    style.loaded = true;
   },
 
   getTemplate () {
