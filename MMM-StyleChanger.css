@@ -7,8 +7,7 @@
   text-transform: none;
   background-color: transparent;
   color: var(--color-text-bright);
-  border-color: var(--color-text);
-  border-width: 1px;
+  border: 1px solid var(--color-text);
   padding: 10px 20px;
   background: none;
 }
