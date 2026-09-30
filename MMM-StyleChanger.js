@@ -52,29 +52,33 @@ Module.register('MMM-StyleChanger', {
   switchStyles (event) {
     const {currentTarget: el} = event;
     const style = this.styles[el.dataset.index];
-    const {path, loaded} = style;
 
-    if (loaded) {
-      document.head.querySelector(`link[href="${style.path}"]`)?.remove();
-      style.loaded = false;
+    if (style.loaded) {
+      this.removeStyle(style);
 
       return;
     }
 
-    this.styles.forEach((style) => {
-      if (!style.loaded) return;
+    this.styles
+      .filter((style) => style.loaded)
+      .forEach((style) => this.removeStyle(style));
 
-      document.head.querySelector(`link[href="${style.path}"]`)?.remove();
-      style.loaded = false;
-    });
+    this.addStyle(style);
+  },
 
+  addStyle (style) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = path;
+    link.href = style.path;
     document.querySelector('head').appendChild(link);
 
     style.loaded = true;
+  },
+
+  removeStyle (style) {
+    document.head.querySelector(`link[href="${style.path}"]`)?.remove();
+    style.loaded = false;
   },
 
   getTemplate () {
