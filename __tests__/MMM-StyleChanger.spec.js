@@ -171,14 +171,36 @@ describe('bindTouchEvent', () => {
 });
 
 describe('switchStyles', () => {
-  it('adds the style to the <head>', () => {
-    const mockStyleButton = document.createElement('button');
-    mockStyleButton.className = 'style-button';
-    mockStyleButton.dataset.path = 'config/custom1.css';
-    document.body.appendChild(mockStyleButton);
+  let mockButtons;
 
+  beforeEach(() => {
+    MMMStyleChanger.styles = [
+      {
+        name: 'Style 1',
+        path: 'config/custom1.css',
+        loaded: false,
+      },
+      {
+        name: 'Style 2',
+        path: 'config/custom1.css',
+        loaded: false,
+      },
+    ];
+    mockButtons = MMMStyleChanger.styles.map((style, index) => {
+      const button = document.createElement('button');
+      button.className = 'style-button';
+      button.innerText = style.name;
+      button.dataset.path = style.path;
+      button.dataset.index = index.toString();
+      document.body.appendChild(button);
+
+      return button;
+    });
+  });
+
+  it('adds the style to the <head>', () => {
     MMMStyleChanger.switchStyles({
-      currentTarget: mockStyleButton,
+      currentTarget: mockButtons[0],
     });
 
     const css = document.head.querySelector('link[href="config/custom1.css"]');
@@ -186,5 +208,14 @@ describe('switchStyles', () => {
     expect(css).not.toBe(null);
     expect(css.rel).toBe('stylesheet');
     expect(css.type).toBe('text/css');
+  });
+
+  it('logs the state to the styles object', () => {
+    MMMStyleChanger.switchStyles({
+      currentTarget: mockButtons[1],
+    });
+
+    expect(MMMStyleChanger.styles[0].loaded).toBe(false);
+    expect(MMMStyleChanger.styles[1].loaded).toBe(true);
   });
 });

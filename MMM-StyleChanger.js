@@ -52,7 +52,7 @@ Module.register('MMM-StyleChanger', {
   switchStyles (event) {
     const {currentTarget: el} = event;
 
-    const path = el.dataset.path;
+    const { index, path } = el.dataset;
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -60,6 +60,7 @@ Module.register('MMM-StyleChanger', {
     link.href = path;
 
     document.querySelector('head').appendChild(link);
+    this.styles[index].loaded = true;
   },
 
   getTemplate () {
