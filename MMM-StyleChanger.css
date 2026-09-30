@@ -1,0 +1,14 @@
+.MMM-StyleChanger .style-button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  overflow: visible;
+  text-transform: none;
+  background-color: transparent;
+  color: var(--color-text-bright);
+  border-color: var(--color-text);
+  border-width: 1px;
+  padding: 10px 20px;
+  background: none;
+}
